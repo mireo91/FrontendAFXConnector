@@ -72,7 +72,7 @@ class AfxConnectorController extends ActionController
                 $packages[$package] = false;
                 continue;
             }else{
-//                file_put_contents($resource, $content);
+                file_put_contents($resource, $content);
                 $packages[$package] = true;
             }
 //            \Neos\Flow\var_dump($package);
