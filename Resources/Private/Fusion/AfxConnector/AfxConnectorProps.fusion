@@ -1,5 +1,6 @@
 prototype(Mireo.FrontendAFXConnector:AfxConnectorProps) < prototype(Neos.Fusion:Component){
 //        @if.backend = ${node.context.inBackend ? TRUE : FALSE}
+        @if.backend = ${FALSE}
 
     renderer = afx`
         <div>connectorResource: {props.path}</div>
