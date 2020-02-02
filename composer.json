@@ -1,0 +1,18 @@
+{
+    "description": "",
+    "type": "neos-plugin",
+    "name": "mireo91/frontendafxconnector",
+    "require": {
+        "neos/flow": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mireo\\FrontendAFXConnector\\": "Classes/"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "Mireo.FrontendAFXConnector"
+        }
+    }
+}

@@ -1,0 +1,9 @@
+prototype(Neos.Demo:Content.Text) < prototype(Neos.Neos:ContentComponent) {
+    text = Neos.Neos:Editable {
+        property = 'text'
+    }
+
+    renderer = afx`
+        <Mireo.FrontendAFXConnector:AfxConnector path="resource://Mireo.FrontendAFXConnector/Private/Fusion/tttt.html" parentProps={props}/>
+    `
+}

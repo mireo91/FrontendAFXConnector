@@ -1,0 +1,5 @@
+prototype(Mireo.FrontendAFXConnector:AfxConnectorRenderer){
+    @class = 'Mireo\\FrontendAFXConnector\\FusionObjects\\AfxConnectorRendererImplementation'
+
+    afxCode = ${'No afx code'}
+}

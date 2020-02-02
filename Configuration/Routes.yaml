@@ -1,0 +1,28 @@
+-
+  name:  'Frontend'
+  uriPattern: 'afxConnector'
+  defaults:
+    '@package':    'Mireo.FrontendAFXConnector'
+    '@controller': 'AfxConnector'
+    '@action':     'show'
+    '@format':     'html'
+  httpMethods: ['GET']
+
+-
+  name:  'Frontend'
+  uriPattern: 'afxConnector'
+  defaults:
+    '@package':    'Mireo.FrontendAFXConnector'
+    '@controller': 'AfxConnector'
+    '@action':     'save'
+    '@format':     'json'
+  httpMethods: ['POST']
+#  routeParts:
+#    'node':
+#      handler:     'Neos\Neos\Routing\FrontendNodeRoutePartHandlerInterface'
+#  subRoutes:
+#    'FrontendSubRoutes':
+#      package: 'Neos.Neos'
+#      suffix:  'Frontend'
+#      variables:
+#        'defaultUriSuffix': '<defaultUriSuffix>'

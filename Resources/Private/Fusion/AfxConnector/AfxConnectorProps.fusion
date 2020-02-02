@@ -1,0 +1,9 @@
+prototype(Mireo.FrontendAFXConnector:AfxConnectorProps) < prototype(Neos.Fusion:Component){
+//        @if.backend = ${node.context.inBackend ? TRUE : FALSE}
+
+    renderer = afx`
+        <div>connectorResource: {props.path}</div>
+        <div>connectorNode: {node.contextPath}</div>
+        <Neos.Fusion:Loop items={props.availableProps} @glue=", ">{"{"+item+"}"}</Neos.Fusion:Loop>
+    `
+}

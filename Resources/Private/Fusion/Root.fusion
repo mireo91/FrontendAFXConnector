@@ -1,0 +1,7 @@
+##
+# Include all .fusion files
+#
+include: ./**/*.fusion
+include: Override.fusion
+
+//test = Neos.Fusion:Tag

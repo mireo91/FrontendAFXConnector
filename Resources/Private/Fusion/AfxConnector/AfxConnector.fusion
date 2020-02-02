@@ -1,0 +1,12 @@
+prototype(Mireo.FrontendAFXConnector:AfxConnector) < prototype(Neos.Fusion:Component){
+    @class = 'Mireo\\FrontendAFXConnector\\FusionObjects\\AfxConnectorImplementation'
+
+    renderer = afx`
+        <Mireo.FrontendAFXConnector:AfxConnectorProps availableProps={props.availableProps} path={props.path}/>
+        <Mireo.FrontendAFXConnector:AfxConnectorRenderer afxCode={props.afxCode?props.afxCode:'No afx code in path: '+props.path} @context.parentProps={props.parentProps}/>
+    `
+}
+
+
+
+
