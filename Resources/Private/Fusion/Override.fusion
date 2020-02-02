@@ -4,6 +4,6 @@ prototype(Neos.Demo:Content.Text) < prototype(Neos.Neos:ContentComponent) {
     }
 
     renderer = afx`
-        <Mireo.FrontendAFXConnector:AfxConnector path="resource://Mireo.FrontendAFXConnector/Private/Fusion/tttt.html" parentProps={props}/>
+        <Mireo.FrontendAFXConnector:AfxConnector path="resource://Mireo.FrontendAFXConnector/Private/Fusion/tttt.afx" parentProps={props}/>
     `
 }

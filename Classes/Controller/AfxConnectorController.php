@@ -63,37 +63,39 @@ class AfxConnectorController extends ActionController
     public function saveAction($fusionCode){
         $packages = [];
         foreach( $fusionCode as $resource=>$content ){
-            preg_match('/^resource:\/\/(?<packageKey>[^\/]*).*$/', $resource, $matches);
+            preg_match('/^resource:\/\/(?<packageKey>[^\/]*)\/(?<resourcePath>.*)$/', $resource, $matches);
             if( !isset($matches['packageKey']) ){
                 continue;
             }
-            $package = $matches['packageKey'];
-            if( !file_exists($resource)) {
-                $packages[$package] = false;
-                continue;
-            }else{
+            $packagePath = $this->packageManager->getPackage($matches['packageKey'])->getPackagePath();
+            $absoluteFilePath = Files::concatenatePaths([
+                $packagePath,
+                'Resources',
+                $matches['resourcePath']
+            ]);
+
+            if( strpos($absoluteFilePath, 'afx') !== false ) {
                 file_put_contents($resource, $content);
-                $packages[$package] = true;
-            }
-//            \Neos\Flow\var_dump($package);
-//            $packages[] = true;
-        }
-
-        $gitRepo = new GitRepository();
-        foreach($packages as $packageKey => $value){
-            if( $value ){
-                $packagePath = $this->packageManager->getPackage($packageKey)->getPackagePath();
-                if( is_dir($packagePath.'.git') ){
-                    $gitRepo->push($packagePath);
+                if (isset($packages[$packagePath])) {
+                    $packages[$packagePath][] = $absoluteFilePath;
+                } else {
+                    $packages[$packagePath][0] = $absoluteFilePath;
                 }
+            }
+        }
+
+        foreach($packages as $packagePath => $value){
+            if( $value ){
+                $gitRepo = new GitRepository($packagePath);
+                $gitRepo->push($value);
 
             }
         }
 
-        \Neos\Flow\var_dump($packages);exit;
+//        \Neos\Flow\var_dump($packages);exit;
 
-        $cwd = getcwd();
-        \Neos\Flow\var_dump($cwd);exit;
+//        $cwd = getcwd();
+//        \Neos\Flow\var_dump($cwd);exit;
 //        chdir();
 //        exec($cmd . ' 2>&1', $output, $ret);
 //        chdir($cwd);

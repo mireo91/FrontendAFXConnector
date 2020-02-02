@@ -6,10 +6,6 @@ use Neos\Flow\Annotations as Flow;
 
 class GitRepository extends AbstractRepository
 {
-    /**
-     * @var string
-     */
-    protected $storageDir = '';
 
     /**
      * @var array
@@ -20,19 +16,28 @@ class GitRepository extends AbstractRepository
     ];
 
     /**
-     * @param $packagePath
+     * @param array $files
      * @return bool
+     * @throws
      */
-    public function push($packagePath){
-        $this->storageDir = $packagePath;
+    public function push($files){
         $this->init();
+//        \Neos\Flow\var_dump($files);exit;
+        $this->stageFiles($files);
         $this->commitChanges();
         return true;
     }
 
+    protected function stageFiles($files){
+
+        foreach( $files as $file ){
+            $this->execute('add '.$file);
+        }
+    }
+
     protected function execute($cmd){
         $cwd = getcwd();
-        chdir($this->storageDir);
+        chdir($this->packagePath);
         exec('git '.$cmd . ' 2>&1', $output, $ret);
         chdir($cwd);
         if($ret !== 0)
@@ -44,10 +49,10 @@ class GitRepository extends AbstractRepository
 
     protected function init() {
 
-        $path = realpath($this->storageDir);
+        $path = realpath($this->packagePath);
 
         if (!is_dir(Files::concatenatePaths([$path, '.git']))) {
-            throw new \Exception(sprintf('Dir %s is not git repository', $this->storageDir));
+            throw new \Exception(sprintf('Dir %s is not git repository', $path));
         }
 
 
@@ -55,12 +60,8 @@ class GitRepository extends AbstractRepository
 
     public function commitChanges($message = null) {
 
-//        $repo = $this->getRepo();
-//
-//        $repo->addAllChanges();
-
         $list = $this->execute('diff --staged --name-status');
-//        \Neos\Flow\var_dump($list);exit;
+//        \Neos\Flow\var_dump($list);
 
         if (empty($list)) {
             return;
