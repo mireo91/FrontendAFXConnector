@@ -21,10 +21,3 @@ Neos:
                 pattern: ControllerObjectName
                 patternOptions:
                   controllerObjectNamePattern: 'Mireo\FrontendAFXConnector\Controller\.*'
-    http:
-      chain:
-        'preprocess':
-          chain:
-            'HttpBasic':
-              position: 'end'
-              component: 'Mireo\FrontendAFXConnector\Component\HttpBasicComponent'

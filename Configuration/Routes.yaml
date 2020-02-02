@@ -1,16 +1,16 @@
 -
   name:  'FrontendAFXConnector show'
-  uriPattern: 'afxConnector/show'
+  uriPattern: 'afxConnector'
   defaults:
     '@package':    'Mireo.FrontendAFXConnector'
     '@controller': 'AfxConnector'
     '@action':     'show'
     '@format':     'html'
-  httpMethods: ['POST']
+  httpMethods: ['GET']
 
 -
   name:  'FrontendAFXConnector save'
-  uriPattern: 'afxConnector/save'
+  uriPattern: 'afxConnector'
   defaults:
     '@package':    'Mireo.FrontendAFXConnector'
     '@controller': 'AfxConnector'
@@ -19,13 +19,13 @@
   httpMethods: ['POST']
 
 - name:  'FrontendAFXConnector download'
-  uriPattern: 'afxConnector/download'
+  uriPattern: 'afxConnector'
   defaults:
     '@package':    'Mireo.FrontendAFXConnector'
     '@controller': 'AfxConnector'
     '@action':     'download'
     '@format':     'json'
-  httpMethods: ['POST']
+  httpMethods: ['COPY']
 #  routeParts:
 #    'node':
 #      handler:     'Neos\Neos\Routing\FrontendNodeRoutePartHandlerInterface'
