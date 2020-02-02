@@ -3,12 +3,21 @@ privilegeTargets:
   'Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
 
     'Mireo.AfxConnector:Render':
-      matcher: 'method(Mireo\FrontendAFXConnector\Controller\AfxConnectorController->(show|save)Action())'
+      matcher: 'method(Mireo\FrontendAFXConnector\Controller\AfxConnectorController->(show)Action())'
+    'Mireo.AfxConnector:Deploy':
+      matcher: 'method(Mireo\FrontendAFXConnector\Controller\AfxConnectorController->(save|download)Action())'
 
 roles:
 
-  'Neos.Flow:Everybody':
+#  'Neos.Flow:Everybody':
+#    privileges:
+
+
+  'Neos.Neos:Administrator':
     privileges:
+      -
+        privilegeTarget: 'Mireo.AfxConnector:Deploy'
+        permission: GRANT
       -
         privilegeTarget: 'Mireo.AfxConnector:Render'
         permission: GRANT

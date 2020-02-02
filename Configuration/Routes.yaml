@@ -1,20 +1,29 @@
 -
-  name:  'Frontend'
-  uriPattern: 'afxConnector'
+  name:  'FrontendAFXConnector show'
+  uriPattern: 'afxConnector/show'
   defaults:
     '@package':    'Mireo.FrontendAFXConnector'
     '@controller': 'AfxConnector'
     '@action':     'show'
     '@format':     'html'
-  httpMethods: ['GET']
+  httpMethods: ['POST']
 
 -
-  name:  'Frontend'
-  uriPattern: 'afxConnector'
+  name:  'FrontendAFXConnector save'
+  uriPattern: 'afxConnector/save'
   defaults:
     '@package':    'Mireo.FrontendAFXConnector'
     '@controller': 'AfxConnector'
     '@action':     'save'
+    '@format':     'json'
+  httpMethods: ['POST']
+
+- name:  'FrontendAFXConnector download'
+  uriPattern: 'afxConnector/download'
+  defaults:
+    '@package':    'Mireo.FrontendAFXConnector'
+    '@controller': 'AfxConnector'
+    '@action':     'download'
     '@format':     'json'
   httpMethods: ['POST']
 #  routeParts:

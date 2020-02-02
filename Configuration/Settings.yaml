@@ -11,3 +11,20 @@ Neos:
 #          variables:
 #            # Set this to an empty string if you prefer URLs without the ".html" suffix
 #            'defaultUriSuffix': '.html'
+    security:
+      authentication:
+        providers:
+          'Neos.Neos:Backend':
+#            provider: PersistedUsernamePasswordProvider
+            requestPatterns:
+              'Mireo.FrontendAFXConnector:AfxConnectorController':
+                pattern: ControllerObjectName
+                patternOptions:
+                  controllerObjectNamePattern: 'Mireo\FrontendAFXConnector\Controller\.*'
+    http:
+      chain:
+        'preprocess':
+          chain:
+            'HttpBasic':
+              position: 'end'
+              component: 'Mireo\FrontendAFXConnector\Component\HttpBasicComponent'

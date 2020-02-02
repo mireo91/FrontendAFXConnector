@@ -51,6 +51,7 @@ class AfxConnectorController extends ActionController
     /**
      * @param NodeInterface $node
      * @param array $fusionCode
+     * @Flow\SkipCsrfProtection
      */
     public function showAction($node, $fusionCode){
         $this->view->setOption('enableContentCache', false);
@@ -59,6 +60,7 @@ class AfxConnectorController extends ActionController
 
     /**
      * @param array $fusionCode
+     * @Flow\SkipCsrfProtection
      */
     public function saveAction($fusionCode){
         $packages = [];
@@ -92,16 +94,23 @@ class AfxConnectorController extends ActionController
             }
         }
 
-//        \Neos\Flow\var_dump($packages);exit;
-
-//        $cwd = getcwd();
-//        \Neos\Flow\var_dump($cwd);exit;
-//        chdir();
-//        exec($cmd . ' 2>&1', $output, $ret);
-//        chdir($cwd);
-
-//        $this->view->setOption('enableContentCache', false);
         $this->view->assign('value', ['status'=>'OK']);
+    }
+
+    /**
+     * @param array $resources
+     * @Flow\SkipCsrfProtection
+     */
+    public function downloadAction($resources){
+        $fusionCode = [];
+        foreach( $resources as $resource ){
+//            preg_match('/^resource:\/\/(?<packageKey>[^\/]*)\/(?<resourcePath>.*)$/', $resource, $matches);
+            if(file_exists($resource)){
+                $fusionCode[$resource] = file_get_contents($resource);
+            }
+        }
+
+        $this->view->assign('value', $fusionCode);
     }
 
 }
