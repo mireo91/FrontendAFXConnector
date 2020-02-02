@@ -1,6 +1,7 @@
 <?php
 namespace Mireo\FrontendAFXConnector\Controller;
 
+use Mireo\FrontendAFXConnector\Repository\GitRepository;
 use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Mvc\Controller\ActionController;
@@ -78,9 +79,13 @@ class AfxConnectorController extends ActionController
 //            $packages[] = true;
         }
 
+        $gitRepo = new GitRepository();
         foreach($packages as $packageKey => $value){
             if( $value ){
                 $packagePath = $this->packageManager->getPackage($packageKey)->getPackagePath();
+                if( is_dir($packagePath.'.git') ){
+                    $gitRepo->push($packagePath);
+                }
 
             }
         }
