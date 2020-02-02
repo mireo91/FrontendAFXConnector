@@ -24,7 +24,11 @@ class GitRepository extends AbstractRepository
         $this->init();
 //        \Neos\Flow\var_dump($files);exit;
         $this->stageFiles($files);
-        $this->commitChanges();
+        $comment = $this->getChangesComment();
+        if( !$comment )
+            return false;
+        $this->commitChanges($comment);
+        $this->execute('push origin master');
         return true;
     }
 
@@ -58,45 +62,24 @@ class GitRepository extends AbstractRepository
 
     }
 
-    public function commitChanges($message = null) {
-
+    protected function getChangesComment(){
         $list = $this->execute('diff --staged --name-status');
-//        \Neos\Flow\var_dump($list);
 
         if (empty($list)) {
-            return;
+            return null;
         }
 
-//        if ($message === null) {
-//            $list = $repo->execute(['diff', '--staged', '--name-status']);
-//            var_dump($list);
-            $list = array_map(function ($i) { return substr($i, 2); }, $list);
-//            $list = array_filter($list, function ($i) { return strpos($i, '_Resources') === false; });
-//            $list2 = array_map(function ($i) { return '-m ' . substr($i, 2); }, $list);
-//            var_dump($list, '------------------------');
-//            array_unshift($list, 'Changed pages:');
-//            $message = '"'.implode(PHP_EOL, $list).'"';
-//            $repo->commit('Changed pages:', $list2);
-//            array_unshift($list2, 'commit');
+        $list = array_map(function ($i) { return substr($i, 2); }, $list);
+        return implode(';', $list);
+    }
 
-            if (empty($list)) {
-                throw new \Exception('Nothing to commit');
-            } else {
-                $authorString = $this->default['name'];
-                $mail = $this->default['email'];
-                $authorString .= " <$mail>";
+    protected function commitChanges($comment) {
+        $authorString = $this->default['name'];
+        $mail = $this->default['email'];
+        $authorString .= " <$mail>";
 //                $repo->execute(['commit', '-m "Changed pages"', '-m '.implode(';', $list)]);
 
-                $this->execute('commit -m "Changed resource: '.implode(';', $list).'" --author="'.$authorString.'"');
-            }
-//        } else {
-//
-//            $repo->commit($message);
-//        }
-
-
-
-//        var_dump($x);
+        $this->execute('commit -m "Changed resource: '.$comment.'" --author="'.$authorString.'"');
 
     }
 
